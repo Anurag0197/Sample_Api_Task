@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+{% if q == 1 %}
+    <p>Mean = {{a[0]}}</p>
+    <p>std_dev = {{a[1]}}</p>
+    <p>Max = {{a[2]}}</p>
+    <p>Min = {{a[3]}}</p>
+
+{% endif %}
+
+    <form  method="POST">
+
+      <select name="chose">
+        {% if a[-1] == 'month' %}
+          <option value="quarterly">quarterly</option>
+          <option value="yearly">yearly</option>
+          <option value="weekly">weekly</option>
+
+          {% elif a[-1] == 'daily'%}
+          <option value="quarterly">quarterly</option>
+          <option value="yearly">yearly</option>
+          <option value="weekly">weekly</option>
+          <option value="monthly">monthly</option>
+
+      {% elif a[-1] == 'weekly'%}
+          <option value="weekly">weekly</option>
+          <option value="monthly">monthly</option>
+
+      {% elif a[-1] == 'quater'%}
+
+          <option value="yearly">yearly</option>
+    {% endif %}
+      </select>
+
+      <input type="submit" name="submit" value="submit">
+    </form>
+
+
+
+
+
+  </body>
+</html>
