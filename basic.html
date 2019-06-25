@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>WELCOME</h1>
+
+  {% set ns=namespace(j = 1) %}
+  {% set ni=namespace(l = 0) %}
+
+  {% for i in range(lc) %}
+    {% if choice[i] != 'None' %}
+
+      <p><strong>{{choice[i]}} Analysis of id {{id[i]}}</strong></p>
+
+      {% for k in range(ni.l,ld) %}
+
+      {% if ns.j == 1 %}
+        <p>Mean 1 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 2 %}
+        <p>Mean 2 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 3 %}
+        <p>std_dev 1 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 4 %}
+        <p>std_dev 2 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 5 %}
+        <p>Max 1 :- {{data[k]}}</p>
+
+      {% elif ns.j == 6 %}
+        <p>Max 2 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 7 %}
+        <p>Min 1 :- {{data[k]}}</p>
+
+
+      {% elif ns.j == 8 %}
+        <p>Min 2 :- {{data[k]}}</p>
+        {% set ni.l = loop.index0 + 1 %}
+      {% endif %}
+
+      {% if ns.j <= 8 %}
+          {% set ns.j = ns.j  + 1 %}
+      {% endif %}
+
+      {% endfor %}
+
+      {% set ns.j = 1 %}
+
+      {% else %}
+      <p><strong>Analysis of id {{id[i]}} is NONE</strong></p>
+
+    {% endif %}
+
+  {% endfor %}
+
+  </body>
+</html>

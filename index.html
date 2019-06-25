@@ -6,44 +6,47 @@
   </head>
   <body>
 
-{% if q == 1 %}
-    <p>Mean = {{a[0]}}</p>
-    <p>std_dev = {{a[1]}}</p>
-    <p>Max = {{a[2]}}</p>
-    <p>Min = {{a[3]}}</p>
-
-{% endif %}
-
-    <form  method="POST">
-
-      <select name="chose">
-        {% if a[-1] == 'month' %}
-          <option value="quarterly">quarterly</option>
-          <option value="yearly">yearly</option>
-          <option value="weekly">weekly</option>
-
-          {% elif a[-1] == 'daily'%}
-          <option value="quarterly">quarterly</option>
-          <option value="yearly">yearly</option>
-          <option value="weekly">weekly</option>
-          <option value="monthly">monthly</option>
-
-      {% elif a[-1] == 'weekly'%}
-          <option value="weekly">weekly</option>
-          <option value="monthly">monthly</option>
-
-      {% elif a[-1] == 'quater'%}
-
-          <option value="yearly">yearly</option>
-    {% endif %}
-      </select>
-
-      <input type="submit" name="submit" value="submit">
-    </form>
+{% set ns=namespace(o = 0) %}
+<form  method="POST">
+{% for i in frequency %}
 
 
+<select name = '{{ns.o}}'>
+
+  {% if i == 'Daily' or i == 'daily' %}
+    <option value="None">None</option>
+    <option value="weekly">weekly</option>
+    <option value="monthly">monthly</option>
+    <option value="quarterly">quarterly</option>
+    <option value="yearly">yearly</option>
 
 
+  {% elif i == 'weekly' or i == 'Weekly' %}
 
-  </body>
+     <option value="None">None</option>
+     <option value="monthly">monthly</option>
+     <option value="quarterly">quarterly</option>
+     <option value="yearly">yearly</option>
+
+  {% elif i == 'Monthly' or i == 'monthly' %}
+
+    <option value="None">None</option>
+    <option value="quarterly">quarterly</option>
+    <option value="yearly">yearly</option>
+
+  {% elif i == 'Quarterly' or i == 'quarterly' %}
+
+    <option value="None">None</option>
+    <option value="yearly">yearly</option>
+
+  {% endif %}
+</select>
+{% set ns.o = ns.o + 1 %}
+
+{% endfor %}
+
+<input type="submit" name="submit" value="submit">
+</form>
+
+</body>
 </html>
