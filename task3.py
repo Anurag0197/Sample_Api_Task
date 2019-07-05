@@ -8,7 +8,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf import FlaskForm
-
+from scipy.stats import pearsonr
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -149,13 +149,7 @@ def index():
             datas.clear()
             dates.clear()
 
-            if choice[i] == "None":
-                datas.append(0)
-                dates.append(0)
-                datas.append('#')
-                dates.append('#')
-
-            else:
+            if choice[i] != "None":
                 l = object[i].ref_data.all()
 
                 if len(l) != 0:
@@ -243,27 +237,53 @@ def index():
                         quaterly_data1 = []
                         quaterly_data2 = []
 
-                        b = month[0]
 
-                        for k in range(len(month)):
-                        	if  month[k] == b+3:
-                        		quaterly_data1.append(datas[k-1])
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                quaterly_data1.append(datas[k])
 
-                        b = month[0]
+                            elif month[k] == 6 and month[k+1] != 6:
+                                quaterly_data1.append(datas[k])
 
-                        for k in range(len(month)):
-                        	if  month[k] != b+3:
-                        		t.append(datas[k])
+                            elif month[k] == 9 and month[k+1] != 9:
+                                quaterly_data1.append(datas[k])
 
-                        	else:
-                        		quaterly_data2.append(statistics.mean(t))
-                        		t.clear()
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
+                            elif month[k] == 12 and month[k+1] != 12:
+                                quaterly_data1.append(datas[k])
+
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            quaterly_data1.append(datas[-1])
+
+                        p = 0
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 6 and month[k+1] != 6:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 9 and month[k+1] != 9:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 12 and month[k+1] != 12:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            if month[-1] != month[-2]:
+                                quaterly_data2.append(datas[-1])
+                            else:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
                         t.clear()
                         yearly_data1 = []
                         yearly_data2 = []
@@ -467,28 +487,55 @@ def index():
                         quaterly_data1 = []
                         quaterly_data2 = []
 
-                        b = month[0]
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                quaterly_data1.append(datas[k])
 
-                        for k in range(len(month)):
-                        	if  month[k] == b+3:
-                        		quaterly_data1.append(datas[k-1])
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
+                            elif month[k] == 6 and month[k+1] != 6:
+                                quaterly_data1.append(datas[k])
 
-                        b = month[0]
+                            elif month[k] == 9 and month[k+1] != 9:
+                                quaterly_data1.append(datas[k])
 
-                        for k in range(len(month)):
-                        	if  month[k] != b+3:
-                        		t.append(datas[k])
+                            elif month[k] == 12 and month[k+1] != 12:
+                                quaterly_data1.append(datas[k])
 
-                        	else:
-                        		quaterly_data2.append(statistics.mean(t))
-                        		t.clear()
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
-                        t.clear()
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            quaterly_data1.append(datas[-1])
+
+                        p = 0
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 6 and month[k+1] != 6:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 9 and month[k+1] != 9:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 12 and month[k+1] != 12:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            if month[-1] != month[-2]:
+                                quaterly_data2.append(datas[-1])
+                            else:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+
+
+                          t.clear()
 
 
                         yearly_data1 = []
@@ -631,28 +678,55 @@ def index():
                         quaterly_data1 = []
                         quaterly_data2 = []
 
-                        b = month[0]
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                quaterly_data1.append(datas[k])
 
-                        for k in range(len(month)):
-                        	if  month[k] == b+3:
-                        		quaterly_data1.append(datas[k-1])
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
+                            elif month[k] == 6 and month[k+1] != 6:
+                                quaterly_data1.append(datas[k])
 
-                        b = month[0]
+                            elif month[k] == 9 and month[k+1] != 9:
+                                quaterly_data1.append(datas[k])
 
-                        for k in range(len(month)):
-                        	if  month[k] != b+3:
-                        		t.append(datas[k])
+                            elif month[k] == 12 and month[k+1] != 12:
+                                quaterly_data1.append(datas[k])
 
-                        	else:
-                        		quaterly_data2.append(statistics.mean(t))
-                        		t.clear()
-                        		b = month[k]
-                        		if month[k] == 10:
-                        			b = -2
-                        t.clear()
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            quaterly_data1.append(datas[-1])
+                            
+                        p = 0
+                        for k in range(len(month)-1):
+                            if month[k] == 3 and month[k+1] != 3:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 6 and month[k+1] != 6:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 9 and month[k+1] != 9:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                            elif month[k] == 12 and month[k+1] != 12:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+                        if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
+                            if month[-1] != month[-2]:
+                                quaterly_data2.append(datas[-1])
+                            else:
+                                t = datas[p:k]
+                                p = k+1
+                                quaterly_data2.append(statistics.mean(t))
+
+
+
+                     t.clear()
 
 
                         yearly_data1 = []
@@ -750,15 +824,143 @@ def index():
                             data_send.append(yearly_min[-1])
                             data_send.append(yearly_min[-2])
 
+                elif frequencies[i] == 'Quarterly' or frequencies[i] == 'quarterly':
 
-        return render_template('basic.html',choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,li=len(ids))
+                    yearly_data1 = []
+                    yearly_data2 = []
+                    year = []
+
+                    for k in range(len(dates)):
+                    	year.append(dates[k][0:4])
+
+                    for k in range(len(year)-1):
+                    	if year[k] != year[k+1]:
+                    		yearly_data1.append(datas[k])
+
+                    yearly_data1.append(datas[len(datas)-1])
+
+                    flag = 0
+                    for k in range(len(year)-1):
+                        if year[k] == year[k+1]:
+                            flag = 1
+                            t.append(datas[k])
+
+                        elif year[k] != year[k+1]:
+                            flag = -1
+                            t.append(datas[k])
+                            yearly_data2.append(statistics.mean(t))
+                            t.clear()
+
+                    if flag == 1:
+                        t.append(datas[-1])
+                        yearly_data2.append(statistics.mean(t))
+                        t.clear()
+
+                    else:
+                        yearly_data2.append(datas[-1])
+                        t.clear()
+
+                    t.clear()
+
+
+                    frequency_yearly_mean1 = statistics.mean(yearly_data1)
+                    frequency_yearly_mean2 = statistics.mean(yearly_data2)
+                    frequency_yearly_std_dev1 = statistics.stdev(yearly_data1)
+                    frequency_yearly_std_dev2 = statistics.stdev(yearly_data2)
+                    frequency_yearly_max1 = max(yearly_data1)
+                    frequency_yearly_max2 = max(yearly_data2)
+                    frequency_yearly_min1 = max(yearly_data1)
+                    frequency_yearly_min2 = min(yearly_data2)
+
+                    yearly_mean.append(frequency_yearly_mean1)
+                    yearly_mean.append(frequency_yearly_mean2)
+                    yearly_std_dev.append(frequency_yearly_std_dev1)
+                    yearly_std_dev.append(frequency_yearly_std_dev2)
+                    yearly_max.append(frequency_yearly_max1)
+                    yearly_max.append(frequency_yearly_max2)
+                    yearly_min.append(frequency_yearly_min1)
+                    yearly_min.append(frequency_yearly_min2)
+
+                    if choice[i] == 'Yearly' or choice[i] == 'yearly':
+
+                        data_send.append(yearly_mean[-1])
+                        data_send.append(yearly_mean[-2])
+                        data_send.append(yearly_std_dev[-1])
+                        data_send.append(yearly_std_dev[-2])
+                        data_send.append(yearly_max[-1])
+                        data_send.append(yearly_max[-2])
+                        data_send.append(yearly_min[-1])
+                        data_send.append(yearly_min[-2])
+
+        if len(ids) > 1:
+            corr_id_1 = int(request.form.get('id1'))
+            corr_id_2 = int(request.form.get('id2'))
+
+            object2_corr = Index.query.filter_by(id=corr_id_2).first()
+            object1_corr = Index.query.filter_by(id=corr_id_1).first()
+
+            rel_object1_corr = object1_corr.ref_data.all()
+            rel_object2_corr = object2_corr.ref_data.all()
+
+            data_corr1 = []
+            data_corr2 = []
+
+            for i in range(len(rel_object1_corr)):
+                data_corr1.append(rel_object1_corr[i].data)
+
+            for i in range(len(rel_object2_corr)):
+                data_corr2.append(rel_object2_corr[i].data)
+
+            if len(data_corr1) == len(data_corr2):
+                pearson_corr, i = pearsonr(data_corr1, data_corr2)
+
+            else:
+                if len(data_corr1) < len(data_corr2):
+                    data_corr2 = data_corr2[:len(data_corr1)]
+
+                if len(data_corr2) < len(data_corr1):
+                    data_corr1 = data_corr1[:len(data_corr2)]
+
+                pearson_corr, i = pearsonr(data_corr1, data_corr2)
+
+        mov_avg_id = int(request.form.get('mov_avg1'))
+        mov_avg_period = int(request.form.get('mov_avg2'))
+
+        object_mov_avg = Index.query.filter_by(id=mov_avg_id).first()
+
+        rel_object_mov_avg = object_mov_avg.ref_data.all()
+
+        mov_avg_data = []
+        mov_avg = []
+
+        for i in range(len(rel_object_mov_avg)):
+            mov_avg_data.append(rel_object_mov_avg[i].data)
+
+        if len(mov_avg_data) < mov_avg_period:
+            mov_avg.append("Error Input")
+
+        else:
+            i = 0
+            j = mov_avg_period-1
+
+            while(j < len(mov_avg_data)):
+                temp = mov_avg_data[i:j+1]
+                mov_avg.append(statistics.mean(temp))
+                i += 1
+                j += 1
+
+        if len(ids) > 1:
+            return render_template('basic.html',pearson_corr=pearson_corr,mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
+        else:
+            return render_template('basic.html',mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
 
 
     else:
         q = 0
-        return render_template('index.html',id=ids,frequency=frequencies,q=q)
+        return render_template('index.html',id=ids,frequency=frequencies,q=q,len_id=len(ids))
 
 
 
 if  __name__ == 'main':
     app.run(debug=True)
+

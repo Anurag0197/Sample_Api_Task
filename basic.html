@@ -64,5 +64,14 @@
 
   {% endfor %}
 
+{% if len_id > 1 %}
+<h2>Pearson Coefficient</h2>
+<p>{{ pearson_corr }}</p>
+{% endif %}
+
+<h2>Moving Average</h2>
+<p>{{ mov_avg }}</p>
+
   </body>
 </html>
+

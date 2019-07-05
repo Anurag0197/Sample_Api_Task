@@ -7,6 +7,7 @@
   <body>
 
 {% set ns=namespace(o = 0) %}
+<h4>Statical Analysis</h4>
 <form  method="POST">
 {% for i in frequency %}
 
@@ -45,8 +46,41 @@
 
 {% endfor %}
 
+<br>
+<br>
+{% if len_id > 1 %}
+
+<h4>Corelation between ids</h4>
+<select name="id1">
+  {% for i in id %}
+    <option value="{{i}}">{{i}}</option>
+  {% endfor %}
+</select>
+and
+<select name="id2">
+  {% for i in id %}
+    <option value="{{i}}">{{i}}</option>
+  {% endfor %}
+</select>
+{% endif %}
+<br>
+<br>
+
+<h4>Moving average</h4>
+<select name="mov_avg1">
+  {% for i in id %}
+    <option value="{{i}}">{{i}}</option>
+  {% endfor %}
+</select>
+
+<input required type="text" name="mov_avg2">
+
+<br>
+<br>
+
 <input type="submit" name="submit" value="submit">
 </form>
 
 </body>
 </html>
+
