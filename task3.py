@@ -143,13 +143,15 @@ def index():
         quarterly_min = []
         yearly_min = []
         data_send  = []
+        sums = []
 
         for i in range(len(choice)):
 
             datas.clear()
             dates.clear()
 
-            if choice[i] != "None":
+
+            if choice[i] != "None": #else:
                 l = object[i].ref_data.all()
 
                 if len(l) != 0:
@@ -157,15 +159,12 @@ def index():
                         datas.append(l[k].data)
                         dates.append(l[k].date)
 
-
                     if frequencies[i] == 'Daily' or frequencies[i] == 'daily':
 
 
                         week = []
                         weekly_data1 = []
                         weekly_data2 = []
-                        weekly_data1.clear()
-                        weekly_data2.clear()
 
                         for k in range(len(dates)):
                             week.append(dates[k][8:10])
@@ -195,7 +194,6 @@ def index():
                         month = []
                         monthly_data1 = []
                         monthly_data2 = []
-
 
                         for k in range(len(dates)):
                         	c = dates[k]
@@ -237,6 +235,7 @@ def index():
                         quaterly_data1 = []
                         quaterly_data2 = []
 
+#                        b = month[0]
 
                         for k in range(len(month)-1):
                             if month[k] == 3 and month[k+1] != 3:
@@ -253,6 +252,7 @@ def index():
 
                         if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
                             quaterly_data1.append(datas[-1])
+
 
                         p = 0
                         for k in range(len(month)-1):
@@ -330,6 +330,8 @@ def index():
                         frequency_weekly_max2 = max(weekly_data2)
                         frequency_weekly_min1 = max(weekly_data1)
                         frequency_weekly_min2 = min(weekly_data2)
+                        sum_weekly_1 = sum(weekly_data1)
+                        sum_weekly_2 = sum(weekly_data2)
 
 
                         frequency_monthly_mean1 = statistics.mean(monthly_data1)
@@ -340,6 +342,8 @@ def index():
                         frequency_monthly_max2 = max(monthly_data2)
                         frequency_monthly_min1 = max(monthly_data1)
                         frequency_monthly_min2 = min(monthly_data2)
+                        sum_monthly_1 = sum(monthly_data1)
+                        sum_monthly_2 = sum(monthly_data2)
 
 
                         frequency_quaterly_mean1 = statistics.mean(quaterly_data1)
@@ -350,6 +354,8 @@ def index():
                         frequency_quaterly_max2 = max(quaterly_data2)
                         frequency_quaterly_min1 = max(quaterly_data1)
                         frequency_quaterly_min2 = min(quaterly_data2)
+                        sum_quaterly_1 = sum(quaterly_data1)
+                        sum_quaterly_2 = sum(quaterly_data2)
 
                         frequency_yearly_mean1 = statistics.mean(yearly_data1)
                         frequency_yearly_mean2 = statistics.mean(yearly_data2)
@@ -359,6 +365,8 @@ def index():
                         frequency_yearly_max2 = max(yearly_data2)
                         frequency_yearly_min1 = max(yearly_data1)
                         frequency_yearly_min2 = min(yearly_data2)
+                        sum_yearly_1 = sum(yearly_data1)
+                        sum_yearly_2 = sum(yearly_data2)
 
                         weekly_mean.append(frequency_weekly_mean1)
                         weekly_mean.append(frequency_weekly_mean2)
@@ -405,6 +413,8 @@ def index():
                             data_send.append(weekly_max[-2])
                             data_send.append(weekly_min[-1])
                             data_send.append(weekly_min[-2])
+                            sums.append(sum_weekly_1)
+                            sums.append(sum_weekly_2)
 
                         elif choice[i] == 'Monthly' or choice[i] == 'monthly':
 
@@ -416,6 +426,8 @@ def index():
                             data_send.append(monthly_max[-2])
                             data_send.append(monthly_min[-1])
                             data_send.append(monthly_min[-2])
+                            sums.append(sum_monthly_1)
+                            sums.append(sum_monthly_2)
 
                         elif choice[i] == 'Quarterly' or choice[i] == 'quarterly':
                             data_send.append(quarterly_mean[-1])
@@ -426,6 +438,8 @@ def index():
                             data_send.append(quarterly_max[-2])
                             data_send.append(quarterly_min[-1])
                             data_send.append(quarterly_min[-2])
+                            sums.append(sum_quaterly_1)
+                            sums.append(sum_quaterly_2)
 
                         elif choice[i] == 'Yearly' or choice[i] == 'yearly':
 
@@ -437,6 +451,8 @@ def index():
                             data_send.append(yearly_max[-2])
                             data_send.append(yearly_min[-1])
                             data_send.append(yearly_max[-2])
+                            sums.append(sum_yearly_1)
+                            sums.append(sum_yearly_2)
 
                     elif frequencies[i] == 'Weekly' or frequencies[i] == 'weekly':
 
@@ -535,7 +551,7 @@ def index():
 
 
 
-                          t.clear()
+                        t.clear()
 
 
                         yearly_data1 = []
@@ -583,7 +599,8 @@ def index():
                         frequency_monthly_max2 = max(monthly_data2)
                         frequency_monthly_min1 = max(monthly_data1)
                         frequency_monthly_min2 = min(monthly_data2)
-
+                        sum_monthly_1 = sum(monthly_data1)
+                        sum_monthly_2 = sum(monthly_data2)
 
                         frequency_quaterly_mean1 = statistics.mean(quaterly_data1)
                         frequency_quaterly_mean2 = statistics.mean(quaterly_data2)
@@ -593,6 +610,8 @@ def index():
                         frequency_quaterly_max2 = max(quaterly_data2)
                         frequency_quaterly_min1 = max(quaterly_data1)
                         frequency_quaterly_min2 = min(quaterly_data2)
+                        sum_quaterly_1 = sum(quaterly_data1)
+                        sum_quaterly_2 = sum(quaterly_data2)
 
                         frequency_yearly_mean1 = statistics.mean(yearly_data1)
                         frequency_yearly_mean2 = statistics.mean(yearly_data2)
@@ -602,6 +621,8 @@ def index():
                         frequency_yearly_max2 = max(yearly_data2)
                         frequency_yearly_min1 = max(yearly_data1)
                         frequency_yearly_min2 = min(yearly_data2)
+                        sum_yearly_1 = sum(yearly_data1)
+                        sum_yearly_2 = sum(yearly_data2)
 
                         monthly_mean.append(frequency_monthly_mean1)
                         monthly_mean.append(frequency_monthly_mean2)
@@ -640,6 +661,8 @@ def index():
                             data_send.append(monthly_max[-2])
                             data_send.append(monthly_min[-1])
                             data_send.append(monthly_min[-2])
+                            sums.append(sum_monthly_1)
+                            sums.append(sum_monthly_2)
 
                         elif choice[i] == 'Quarterly' or choice[i] == 'quarterly':
                             data_send.append(quarterly_mean[-1])
@@ -650,6 +673,8 @@ def index():
                             data_send.append(quarterly_max[-2])
                             data_send.append(quarterly_min[-1])
                             data_send.append(quarterly_min[-2])
+                            sums.append(sum_quaterly_1)
+                            sums.append(sum_quaterly_2)
 
                         elif choice[i] == 'Yearly' or choice[i] == 'yearly':
 
@@ -661,6 +686,8 @@ def index():
                             data_send.append(yearly_max[-2])
                             data_send.append(yearly_min[-1])
                             data_send.append(yearly_min[-2])
+                            sums.append(sum_yearly_1)
+                            sums.append(sum_yearly_2)
 
                     elif frequencies[i] == 'Monthly' or frequencies[i] == 'monthly':
                         t = []
@@ -693,7 +720,7 @@ def index():
 
                         if month[-1] == 3 or month[-1] == 6 or month[-1] == 9 or month[-1] == 12:
                             quaterly_data1.append(datas[-1])
-                            
+
                         p = 0
                         for k in range(len(month)-1):
                             if month[k] == 3 and month[k+1] != 3:
@@ -725,8 +752,7 @@ def index():
                                 quaterly_data2.append(statistics.mean(t))
 
 
-
-                     t.clear()
+                        t.clear()
 
 
                         yearly_data1 = []
@@ -774,6 +800,8 @@ def index():
                         frequency_quaterly_max2 = max(quaterly_data2)
                         frequency_quaterly_min1 = max(quaterly_data1)
                         frequency_quaterly_min2 = min(quaterly_data2)
+                        sum_quaterly_1 = sum(quaterly_data1)
+                        sum_quaterly_2 = sum(quaterly_data2)
 
                         frequency_yearly_mean1 = statistics.mean(yearly_data1)
                         frequency_yearly_mean2 = statistics.mean(yearly_data2)
@@ -783,7 +811,8 @@ def index():
                         frequency_yearly_max2 = max(yearly_data2)
                         frequency_yearly_min1 = max(yearly_data1)
                         frequency_yearly_min2 = min(yearly_data2)
-
+                        sum_yearly_1 = sum(yearly_data1)
+                        sum_yearly_2 = sum(yearly_data2)
 
                         quarterly_mean.append(frequency_quaterly_mean1)
                         quarterly_mean.append(frequency_quaterly_mean2)
@@ -794,6 +823,7 @@ def index():
                         quarterly_min.append(frequency_quaterly_min1)
                         quarterly_min.append(frequency_quaterly_min2)
 
+
                         yearly_mean.append(frequency_yearly_mean1)
                         yearly_mean.append(frequency_yearly_mean2)
                         yearly_std_dev.append(frequency_yearly_std_dev1)
@@ -802,6 +832,8 @@ def index():
                         yearly_max.append(frequency_yearly_max2)
                         yearly_min.append(frequency_yearly_min1)
                         yearly_min.append(frequency_yearly_min2)
+
+
 
                         if choice[i] == 'Quarterly' or choice[i] == 'quarterly':
                             data_send.append(quarterly_mean[-1])
@@ -812,6 +844,8 @@ def index():
                             data_send.append(quarterly_max[-2])
                             data_send.append(quarterly_min[-1])
                             data_send.append(quarterly_min[-2])
+                            sums.append(sum_quaterly_1)
+                            sums.append(sum_quaterly_2)
 
                         if choice[i] == 'Yearly' or choice[i] == 'yearly':
 
@@ -823,6 +857,8 @@ def index():
                             data_send.append(yearly_max[-2])
                             data_send.append(yearly_min[-1])
                             data_send.append(yearly_min[-2])
+                            sums.append(sum_yearly_1)
+                            sums.append(sum_yearly_2)
 
                 elif frequencies[i] == 'Quarterly' or frequencies[i] == 'quarterly':
 
@@ -871,6 +907,8 @@ def index():
                     frequency_yearly_max2 = max(yearly_data2)
                     frequency_yearly_min1 = max(yearly_data1)
                     frequency_yearly_min2 = min(yearly_data2)
+                    sum_yearly_1 = sum(yearly_data1)
+                    sum_yearly_2 = sum(yearly_data2)
 
                     yearly_mean.append(frequency_yearly_mean1)
                     yearly_mean.append(frequency_yearly_mean2)
@@ -891,6 +929,8 @@ def index():
                         data_send.append(yearly_max[-2])
                         data_send.append(yearly_min[-1])
                         data_send.append(yearly_min[-2])
+                        sums.append(sum_yearly_1)
+                        sums.append(sum_yearly_2)
 
         if len(ids) > 1:
             corr_id_1 = int(request.form.get('id1'))
@@ -950,9 +990,9 @@ def index():
                 j += 1
 
         if len(ids) > 1:
-            return render_template('basic.html',pearson_corr=pearson_corr,mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
+            return render_template('basic.html',sum=sums,pearson_corr=pearson_corr,mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
         else:
-            return render_template('basic.html',mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
+            return render_template('basic.html',sum=sums,mov_avg=mov_avg,choice=choice,lc=len(choice),q=q,data=data_send,ld=len(data_send),id=ids,len_id=len(ids))
 
 
     else:
@@ -960,6 +1000,160 @@ def index():
         return render_template('index.html',id=ids,frequency=frequencies,q=q,len_id=len(ids))
 
 
+@app.route('/period/add',methods = ['GET','POST'])
+def period():
+    a = request.args.get("id")
+    x = []
+    ids = []
+    q = 1
+    c = a.find(',')
+
+    if c == -1:
+        ids.append(int(a[1:len(a)-1]))
+
+    else:
+        for i in range(len(a)):
+            if a[i] == ',':
+                x.append(i)
+        b = 1
+        for i in range(len(x)):
+            ids.append(int(a[b:x[i]]))
+            b = x[i]+1
+        i = len(a)-1
+        ids.append(int(a[x[-1]+1:i]))
+
+    object = []
+
+    for i in range(len(ids)):
+        f = Index.query.filter_by(id=ids[i]).first()
+        object.append(f)
+
+    if request.method == 'POST':
+        datas = []
+        dates = []
+        mean = []
+        std_dev = []
+        maxs = []
+        mins = []
+        sums = []
+
+        for i in range(len(object)):
+            dates.clear()
+            datas.clear()
+
+            l = object[i].ref_data.all()
+
+            if len(l) != 0:
+                for k in range(len(l)):
+                    datas.append(l[k].data)
+                    dates.append(l[k].date)
+
+            min_date = request.form.get(dates[0])
+            max_date = request.form.get(dates[-1])
+
+            min_ind = -1
+            max_ind = -1
+
+            for i in range(len(dates)):
+                if dates[i] >= min_date:
+                    min_ind = i
+                    break
+
+            for i in range(len(dates)-1,0,-1):
+                if dates[i] <= max_date:
+                    max_ind = i
+                    break
+
+            date = dates[min_ind:max_ind+1]
+            data = datas[min_ind:max_ind+1]
+
+            sums.append(sum(data))
+
+            mean.append(statistics.mean(data))
+            std_dev.append(statistics.mean(data))
+            maxs.append(max(data))
+            mins.append(min(data))
+
+        if len(ids) > 1:
+            corr_id_1 = int(request.form.get('id1'))
+            corr_id_2 = int(request.form.get('id2'))
+
+            object2_corr = Index.query.filter_by(id=corr_id_2).first()
+            object1_corr = Index.query.filter_by(id=corr_id_1).first()
+
+            rel_object1_corr = object1_corr.ref_data.all()
+            rel_object2_corr = object2_corr.ref_data.all()
+
+            data_corr1 = []
+            data_corr2 = []
+
+            for i in range(len(rel_object1_corr)):
+                data_corr1.append(rel_object1_corr[i].data)
+
+            for i in range(len(rel_object2_corr)):
+                data_corr2.append(rel_object2_corr[i].data)
+
+            if len(data_corr1) == len(data_corr2):
+                pearson_corr, i = pearsonr(data_corr1, data_corr2)
+
+            else:
+                if len(data_corr1) < len(data_corr2):
+                    data_corr2 = data_corr2[:len(data_corr1)]
+
+                if len(data_corr2) < len(data_corr1):
+                    data_corr1 = data_corr1[:len(data_corr2)]
+
+                pearson_corr, i = pearsonr(data_corr1, data_corr2)
+
+        mov_avg_id = int(request.form.get('mov_avg1'))
+        mov_avg_period = int(request.form.get('mov_avg2'))
+
+        object_mov_avg = Index.query.filter_by(id=mov_avg_id).first()
+
+        rel_object_mov_avg = object_mov_avg.ref_data.all()
+
+        mov_avg_data = []
+        mov_avg = []
+
+        for i in range(len(rel_object_mov_avg)):
+            mov_avg_data.append(rel_object_mov_avg[i].data)
+
+        if len(mov_avg_data) < mov_avg_period:
+            mov_avg.append("Error Input")
+
+        else:
+            i = 0
+            j = mov_avg_period-1
+
+            while(j < len(mov_avg_data)):
+                temp = mov_avg_data[i:j+1]
+                mov_avg.append(statistics.mean(temp))
+                i += 1
+                j += 1
+
+        if len(ids) > 1:
+            return render_template('period1.html',sum=sums,id=ids,mean=mean,std_dev=std_dev,max=maxs,min=mins,len=len(mean),mov_avg=mov_avg,pearson_corr=pearson_corr)
+        else:
+            return render_template('period1.html',id=ids,mean=mean,std_dev=std_dev,max=maxs,min=mins,len=len(mean),mov_avg=mov_avg)
+
+    else:
+        dates = []
+        date_send = []
+
+        for i in range(len(object)):
+
+            l = object[i].ref_data.all()
+
+            if len(l) != 0:
+                for k in range(len(l)):
+                    dates.append(l[k].date)
+
+                date_send.append(dates[0])
+                date_send.append(dates[-1])
+
+                dates.clear()
+
+        return render_template('period.html',id=ids,date=date_send,len=len(ids))
 
 if  __name__ == 'main':
     app.run(debug=True)

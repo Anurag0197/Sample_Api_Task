@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Period Analysis</title>
+  </head>
+  <body>
+    {% for i in range(len) %}
+
+      <strong>Analysis of id {{id[i]}}</strong>
+      <br>
+      <br>
+      Mean :- {{mean[i]}}
+      <br>
+      <br>
+      Std_Dev :- {{std_dev[i]}}
+      <br>
+      <br>
+      Max :- {{max[i]}}
+      <br>
+      <br>
+      Min :- {{min[i]}}
+      <br>
+      <br>
+      <br>
+      <br>
+    {% endfor %}
+
+    <br>
+    <br>
+
+    <h4>Moving Average</h4>
+
+      {{ mov_avg }}
+
+      {% if len > 1 %}
+      <h2>Pearson Coefficient</h2>
+      <p>{{ pearson_corr }}</p>
+      {% endif %}
+
+<h4>SUM</h4>
+{{ sum }}
+{#   {{data}}
+
+  {{m}}
+  <br>
+  {{n}} #}
+  </body>
+</html>

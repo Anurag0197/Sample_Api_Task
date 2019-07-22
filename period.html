@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Period Analysis</title>
+  </head>
+  <body>
+
+  {% set ns=namespace(j = 0) %}
+
+  <form method="POST">
+
+
+    {% for i in date %}
+
+    {% if ns.j%2 == 0 %}
+      MIN DATE : {{i}}
+     <input type="text" name="{{i}}" required placeholder="YYYY-MM-DD">
+     <br>
+    {% else %}
+      MAX DATE : {{i}}
+      <input type="text" name="{{i}}" required  placeholder="YYYY-MM-DD">
+      <br>
+      <br>
+    {% endif %}
+    {% set ns.j = ns.j  + 1 %}
+    {% endfor %}
+
+    <br>
+    {% if len > 1 %}
+    <h4>Corelation between ids</h4>
+    <select name="id1">
+      {% for i in id %}
+        <option value="{{i}}">{{i}}</option>
+      {% endfor %}
+    </select>
+    and
+    <select name="id2">
+      {% for i in id %}
+        <option value="{{i}}">{{i}}</option>
+      {% endfor %}
+    </select>
+    {% endif %}
+
+    <br>
+    <br>
+
+    <h4>Moving average</h4>
+
+    <select name="mov_avg1">
+      {% for i in id %}
+        <option value="{{i}}">{{i}}</option>
+      {% endfor %}
+    </select>
+
+    <input required type="text" name="mov_avg2">
+    <br>
+    <br>
+    <input type="submit" value="submit">
+
+  </form>
+  </body>
+</html>
